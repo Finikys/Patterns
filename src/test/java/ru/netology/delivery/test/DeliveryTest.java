@@ -45,7 +45,14 @@ class DeliveryTest {
         $("[name='phone']").setValue(DataGenerator.generatePhone("ru"));
         $("[class='checkbox__box']").click();
         $("[class='button__text']").click();
-        $("[class='notification__title']").shouldBe(visible, Duration.ofSeconds(12));
-        $(".notification__content").shouldHave(Condition.text("Встреча успешно забронирована на " + firstMeetingDate), Duration.ofSeconds(15)).shouldBe(Condition.visible);
+        $("[class='notification__title']").shouldBe(visible);
+        $x("//div[contains(text(), 'Встреча успешно')]").shouldHave(Condition.text("Встреча успешно запланирована на " + firstMeetingDate)).shouldBe(Condition.visible);
+        $("[placeholder='Дата встречи']").sendKeys(Keys.CONTROL + "a");
+        $("[placeholder='Дата встречи']").sendKeys(Keys.BACK_SPACE);
+        $("[placeholder='Дата встречи']").setValue(secondMeetingDate);
+        $("[class='button__text']").click();
+        $x("//div[contains(text(), 'У вас уже запланирована встреча')]").shouldBe(Condition.visible);
+        $x("//div[contains(text(), 'Перепланировать')]").click();
+        $x("//div[contains(text(), 'Встреча успешно')]").shouldHave(Condition.text("Встреча успешно запланирована на " + secondMeetingDate)).shouldBe(Condition.visible);
     }
 }

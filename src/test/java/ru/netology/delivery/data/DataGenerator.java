@@ -26,16 +26,18 @@ public class DataGenerator {
     public static String generateCity(String locale) {
         Random random = new Random();
         String [] cites = {"Волгоград","Вологда","Калуга","Иваново","Курган","Астрахань","Благовещенск"};
-        String city = cites[random.nextInt(8)];
+        String city = cites[random.nextInt(7)];
         return city;
     }
 
     public static String generateName(String locale) {
+        Faker faker = new Faker(new Locale("ru"));
         String name = faker.name().fullName();
         return name;
     }
 
     public static String generatePhone(String locale) {
+        Faker faker = new Faker(new Locale("ru"));
         String phone = faker.phoneNumber().phoneNumber();
         return phone;
     }
